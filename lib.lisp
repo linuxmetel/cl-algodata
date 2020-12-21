@@ -13,7 +13,7 @@
 
 (defmacro swap (p q)       
   (let ((g (gensym)))      
-    `(let ((,g ,q)) (setq ,q ,p ,p ,g))))
+    `(let ((,g ,q)) (setf ,q ,p ,p ,g))))
 
 ;;split
 
