@@ -17,8 +17,22 @@
 
 ;;split
 
-(defun split (str &key (by " "))
-  (loop for last = 0 then (1+ p)
-        for p = (search by str :start2 last)
-        collect (subseq str last p)
-        while p)
+(defun split (str)
+  (let ((p 0))
+    (append
+     (loop while (setq p (search " " str))
+           collect (subseq str 0 p)
+           do (setq str (subseq str (1+ p))))
+     `(,(subseq str 0)))))
+
+;;extgcd
+(defun extgcd (a b)
+  (if (= b 0)
+      (list a 1 0)
+      (let ((d (extgcd b (rem a b))))
+        (list d (third d) (- (second d) (* (floor a b) (third d)))))))
+
+;;euc
+(defun euc (a m)
+  (let ((d (extgcd a m)))
+    (mod (second d) m)))
